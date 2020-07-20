@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue blog</title>
+</head>
+<body>
+    {% block content %}
+    {% endblock %}
+</body>
+{% block header %}
+    <ul>
+        {% if request.user.is_authenticated %}
+            {% block logged_in_nav %}
+                {% if not has_blog %}
+                    <li><a href="{% url 'new-blog'%}">Create New blog</a></li>
+                {% else %}
+                    <li><a href="">Edit blog settings</a></li>
+                {% endif %}   
+            {% endblock logged_in_nav %}
+            <li><a href="{% url 'logout'%}">Logout</a></li>
+        {% else %}
+            <li><a href="{% url 'login'%}">Login</a></li>
+            <li><a href="{% url "user_registration"%}">Register account.</a></li>
+        {% endif %}
+    </ul>
+{% endblock header %}
+</html>
